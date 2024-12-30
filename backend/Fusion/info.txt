@@ -1,1 +1,10 @@
 http://localhost:8080/api/mongo/data?dbName=testdb&collection=employees&primaryKey=_id&primaryValue=102
+
+post --- http://localhost:8081/send
+
+   {
+       "event":"my fourth event for fusion testiong, accpet it peacefully..!"
+   }
+
+
+get --- http://localhost:8080/kafka/search
