@@ -7,9 +7,8 @@ public class KafkaResponse {
 
     private String key;
     private String value;
-
-    public KafkaResponse(String key, String value) {
-        this.key = key;
-        this.value = value;
-    }
+    private String topic;
+    private int partition;
+    private long offset;
+    private String timestamp;
 }
