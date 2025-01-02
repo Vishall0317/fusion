@@ -8,3 +8,17 @@ post --- http://localhost:8081/send
 
 
 get --- http://localhost:8080/kafka/search
+
+
+elastic
+----------
+http://localhost:8080/employees/save
+
+{
+    "id": "1",
+    "name": "John Doe",
+    "designation": "Software Engineer"
+}
+http://localhost:8080/employees/search/name/John Doe
+
+http://localhost:8080/employees/search/id/1

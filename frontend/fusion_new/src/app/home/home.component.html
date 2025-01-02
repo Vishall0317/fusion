@@ -1,0 +1,152 @@
+<!-- Header Section -->
+<div class="header">
+    <h1>Data Fetcher</h1>
+    <div class="button-container">
+        <button mat-raised-button color="primary" (click)="showSection('sqlData')">Fetch SQL Data</button>
+        <button mat-raised-button color="primary" (click)="showSection('mongoData')">Fetch Mongo Data</button>
+        <button mat-raised-button color="primary" (click)="showSection('showSearchKafkaData')">Fetch Kafka Data (CG,
+            Topic,
+            Partition,
+            Offset)</button>
+        <button mat-raised-button color="primary" (click)="showSection('showFetchKafkaData')">Fetch Kafka Data (CG,
+            Topic)</button>
+    </div>
+</div>
+
+
+<!-- SQL Data Fetch Form -->
+<div *ngIf="activeSection === 'sqlData'" class="container">
+    <h2>Fetch SQL Data</h2>
+    <input type="text" [(ngModel)]="dbName" placeholder="Database Name">
+    <input type="text" [(ngModel)]="tableName" placeholder="Table Name">
+    <input type="text" [(ngModel)]="primaryKey" placeholder="Primary Key">
+    <input type="text" [(ngModel)]="id" placeholder="Primary ID">
+    <button (click)="fetchData()">Fetch Data</button>
+    <div class="json-container">
+        <pre>{{ data | json }}</pre>
+    </div>
+</div>
+
+
+
+
+<!-- Mongo Data Fetch Form -->
+<div *ngIf="activeSection === 'mongoData'" class="container">
+    <h2>Fetch Mongo Data</h2>
+    <input type="text" [(ngModel)]="mongoDbName" placeholder="Database Name">
+    <input type="text" [(ngModel)]="collection" placeholder="Collection Name">
+    <input type="text" [(ngModel)]="primaryMongoKey" placeholder="Primary Key">
+    <input type="text" [(ngModel)]="primaryMongoValue" placeholder="Primary Value">
+    <button (click)="fetchMongo_Data()">Fetch Data</button>
+    <div class="json-container">
+        <pre>{{ mongo_Data | json }}</pre>
+    </div>
+</div>
+
+
+
+<!-- Kafka Data Fetch Form (CG, Topic, Partition, Offset) -->
+<div *ngIf="activeSection === 'showSearchKafkaData'" class="container">
+    <h2>Fetch Kafka Data (CG, Topic, Partition, Offset)</h2>
+    <form #kafkaForm="ngForm" (ngSubmit)="searchingKafkaData()">
+        <mat-form-field appearance="outline">
+            <mat-label>Consumer Group</mat-label>
+            <input matInput type="text" [(ngModel)]="consumerGroup" name="consumerGroup" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Topic Name</mat-label>
+            <input matInput type="text" [(ngModel)]="topic" name="topicName" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Partition</mat-label>
+            <input matInput type="number" [(ngModel)]="partition" name="partition" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Offset</mat-label>
+            <input matInput type="number" [(ngModel)]="offset" name="offset" required>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="showKafkaData('search')" type="submit">Fetch Data</button>
+    </form>
+</div>
+
+<!-- Data Output Section -->
+<div *ngIf="kafkaData && kafkaData.length > 0 && currentKafkaDataView === 'search'" class="container">
+    <h3>Fetched Data:</h3>
+    <ul>
+        <li *ngFor="let record of kafkaData">{{ record }}</li>
+    </ul>
+    <button mat-raised-button color="warn" (click)="closeData()">Close</button>
+</div>
+
+<!-- Data Output Section -->
+<div *ngIf="kafkaData && kafkaData.length > 0 && currentKafkaDataView === 'search'" class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h3>Fetched Data:</h3>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let record of kafkaData">{{ record }}</li>
+            </ul>
+        </div>
+        <div class="card-footer text-right">
+            <button mat-raised-button color="warn" (click)="closeData()">Close</button>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Kafka Data Fetch Form (CG, Topic) -->
+<div *ngIf="activeSection === 'showFetchKafkaData'" class="container">
+    <h2>Fetch Kafka Data (CG, Topic)</h2>
+    <form #kafkaForm="ngForm" (ngSubmit)="fetchingKafkaData()">
+        <mat-form-field appearance="outline">
+            <mat-label>Consumer Group</mat-label>
+            <input matInput type="text" [(ngModel)]="consumerGroup" name="consumerGroup" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Topic Name</mat-label>
+            <input matInput type="text" [(ngModel)]="topic" name="topicName" required>
+        </mat-form-field>
+
+        <button mat-raised-button color="accent" (click)="showKafkaData('fetch')" type="submit">Fetch Data</button>
+
+    </form>
+</div>
+
+<!-- Data Output Section -->
+<div *ngIf="kafkaData && kafkaData.length > 0 && currentKafkaDataView === 'fetch'" class="container">
+    <h3>Fetched Data:</h3>
+    <ul>
+        <div class="json-container">
+            <ul>
+                <pre><li *ngFor="let record of kafkaData">{{ data | json  }}</li></pre>
+                <!-- <ngx-json-viewer [json]="kafkaData"></ngx-json-viewer> -->
+            </ul>
+        </div>
+    </ul>
+    <button mat-raised-button color="warn" (click)="closeData()">Close</button>
+</div>
+
+<!-- Data Output Section -->
+<div *ngIf="kafkaData && kafkaData.length > 0 && currentKafkaDataView === 'fetch'" class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h3>Fetched Data:</h3>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let record of kafkaData">{{ record }}</li>
+            </ul>
+        </div>
+        <div class="card-footer text-right">
+            <button mat-raised-button color="warn" (click)="closeData()">Close</button>
+        </div>
+    </div>
+</div>
