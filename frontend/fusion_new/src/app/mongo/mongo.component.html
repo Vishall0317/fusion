@@ -1,0 +1,45 @@
+<!-- Mongo Data Fetch Form -->
+<div class="container">
+    <h2>Fetch Mongo Data</h2>
+    <form #kafkaForm="ngForm" (ngSubmit)="fetchMongoData()">
+        <mat-form-field appearance="outline">
+            <mat-label>DB Name</mat-label>
+            <input matInput type="text" [(ngModel)]="mongoDbName" name="mongoDbName" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Collection Name</mat-label>
+            <input matInput type="text" [(ngModel)]="collection" name="collection" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Primary Key Name</mat-label>
+            <input matInput type="text" [(ngModel)]="primaryMongoKey" name="primaryMongoKey" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Primary Key Value</mat-label>
+            <input matInput type="text" [(ngModel)]="primaryMongoValue" name="primaryMongoValue" required>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="showMongoData('mongoSearch')" type="submit">Fetch Data</button>
+    </form>
+</div>
+<!-- Data Output Section -->
+<div *ngIf="mongoData && mongoData.length > 0 && currentMongoView === 'mongoSearch'" class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h3>Fetched Data:</h3>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let data of mongoData">
+                    <strong>Data:</strong> <pre>{{ data | json }}</pre> <br>
+                </li>
+            </ul>
+        </div>
+        <div class="card-footer text-right">
+            <button mat-raised-button color="warn" (click)="closeData()">Close</button>
+        </div>
+    </div>
+</div>

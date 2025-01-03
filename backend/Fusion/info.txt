@@ -22,3 +22,18 @@ http://localhost:8080/employees/save
 http://localhost:8080/employees/search/name/John Doe
 
 http://localhost:8080/employees/search/id/1
+
+
+
+mongo
+--------
+http://localhost:8080/api/mongo
+{
+    "id": "107",
+    "name": "John Doe",
+    "city": "pune",
+    "salary": "30000"
+}
+
+
+http://localhost:8080/api/mongo/data?dbName=fusion_db&collection=fusion&primaryKey=_id&primaryValue=107

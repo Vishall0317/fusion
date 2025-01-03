@@ -1,0 +1,45 @@
+<!-- SQL Data Fetch Form -->
+<div class="container">
+    <h2>Fetch SQL Data</h2>
+    <form #kafkaForm="ngForm" (ngSubmit)="fetchData()">
+        <mat-form-field appearance="outline">
+            <mat-label>DB Name</mat-label>
+            <input matInput type="text" [(ngModel)]="dbName" name="dbName" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Table Name</mat-label>
+            <input matInput type="text" [(ngModel)]="tableName" name="tableName" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Primary Key Name</mat-label>
+            <input matInput type="text" [(ngModel)]="primaryKey" name="primaryKey" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Primary Key Value</mat-label>
+            <input matInput type="text" [(ngModel)]="id" name="id" required>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="showSqlData('sqlSearch')" type="submit">Fetch Data</button>
+    </form>
+</div>
+<!-- Data Output Section -->
+<div *ngIf="data && data.length > 0 && currentSqlView === 'sqlSearch'" class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h3>Fetched Data:</h3>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let d of data">
+                    <strong>Data:</strong> <pre>{{ data | json }}</pre> <br>
+                </li>
+            </ul>
+        </div>
+        <div class="card-footer text-right">
+            <button mat-raised-button color="warn" (click)="closeData()">Close</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,96 @@
+<!-- Kafka Data Fetch Form (CG, Topic, Partition, Offset) -->
+<div *ngIf="activeSection === 'showSearchKafkaData'" class="container">
+    <h2>Fetch Kafka Data (CG, Topic, Partition, Offset)</h2>
+    <form #kafkaForm="ngForm" (ngSubmit)="searchingKafkaData()">
+        <mat-form-field appearance="outline">
+            <mat-label>Consumer Group</mat-label>
+            <input matInput type="text" [(ngModel)]="consumerGroup" name="consumerGroup" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Topic Name</mat-label>
+            <input matInput type="text" [(ngModel)]="topic" name="topicName" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Partition</mat-label>
+            <input matInput type="number" [(ngModel)]="partition" name="partition" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Offset</mat-label>
+            <input matInput type="number" [(ngModel)]="offset" name="offset" required>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="showKafkaData('search')" type="submit">Fetch Data</button>
+    </form>
+</div>
+<!-- Data Output Section -->
+<div *ngIf="kafkaData && kafkaData.length > 0 && currentKafkaDataView === 'search'" class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h3>Fetched Data:</h3>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let record of kafkaData">
+                    <!-- Adjust the properties according to your data structure -->
+                    <strong>Key:</strong> {{ record.key }} <br>
+                    <strong>Offset:</strong> {{ record.offset }} <br>
+                    <strong>Partition:</strong> {{ record.partition }} <br>
+                    <strong>Timestamp:</strong> {{ record.timestamp }} <br>
+                    <strong>Topic:</strong> {{ record.topic }} <br>
+                    <strong>Value:</strong> {{ record.value | json }}
+                </li>
+            </ul>
+        </div>
+        <div class="card-footer text-right">
+            <button mat-raised-button color="warn" (click)="closeData()">Close</button>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Kafka Data Fetch Form (CG, Topic) -->
+<div *ngIf="activeSection === 'showFetchKafkaData'" class="container">
+    <h2>Fetch Kafka Data (CG, Topic)</h2>
+    <form #kafkaForm="ngForm" (ngSubmit)="fetchingKafkaData()">
+        <mat-form-field appearance="outline">
+            <mat-label>Consumer Group</mat-label>
+            <input matInput type="text" [(ngModel)]="consumerGroup" name="consumerGroup" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Topic Name</mat-label>
+            <input matInput type="text" [(ngModel)]="topic" name="topicName" required>
+        </mat-form-field>
+
+        <button mat-raised-button color="accent" (click)="showKafkaData('fetch')" type="submit">Fetch Data</button>
+
+    </form>
+</div>
+<!-- Data Output Section -->
+<div *ngIf="kafkaData && kafkaData.length > 0 && currentKafkaDataView === 'fetch'" class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h3>Fetched Data:</h3>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let record of kafkaData">
+                    <!-- Adjust the properties according to your data structure -->
+                    <strong>Key:</strong> {{ record.key }} <br>
+                    <strong>Offset:</strong> {{ record.offset }} <br>
+                    <strong>Partition:</strong> {{ record.partition }} <br>
+                    <strong>Timestamp:</strong> {{ record.timestamp }} <br>
+                    <strong>Topic:</strong> {{ record.topic }} <br>
+                    <strong>Value:</strong> {{ record.value | json }}
+                </li>
+            </ul>
+        </div>
+        <div class="card-footer text-right">
+            <button mat-raised-button color="warn" (click)="closeData()">Close</button>
+        </div>
+    </div>
+</div>

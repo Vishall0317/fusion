@@ -4,29 +4,19 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
-import { SqlComponent } from "../sql/sql.component";
-import { MongoComponent } from "../mongo/mongo.component";
-import { KafkaComponent } from '../kafka/kafka.component';
-import { ElasticsearchComponent } from "../elasticsearch/elasticsearch.component";
-import { SplunkComponent } from '../splunk/splunk.component';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  imports: [
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    CommonModule,
-    SqlComponent,
-    MongoComponent,
-    KafkaComponent,
-    ElasticsearchComponent,
-    SplunkComponent
-],
-  styleUrls: ['./home.component.css']
+  selector: 'app-mongo',
+   imports: [
+      FormsModule, 
+      MatFormFieldModule,
+      MatInputModule,
+      CommonModule, 
+    ],
+  templateUrl: './mongo.component.html',
+  styleUrl: './mongo.component.css'
 })
-export class HomeComponent implements OnInit {
+export class MongoComponent implements OnInit {
 
   activeSection: String ='';
   dbName: any;
@@ -119,3 +109,4 @@ export class HomeComponent implements OnInit {
     this.mongoData = [];
   }
 }
+
