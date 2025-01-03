@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ElasticSearchConfig {
+
     @Bean
     public RestClient getRestClient() {
         RestClient restClient = RestClient.builder(

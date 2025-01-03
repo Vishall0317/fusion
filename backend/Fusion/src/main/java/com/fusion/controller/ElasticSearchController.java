@@ -1,7 +1,7 @@
 package com.fusion.controller;
 
 import com.fusion.model.ElasticEntity;
-import com.fusion.service.ElasticSearchQuery;
+import com.fusion.service.ElasticSearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,29 +18,39 @@ import java.util.List;
 public class ElasticSearchController {
 
     @Autowired
-    private ElasticSearchQuery elasticSearchQuery;
+    private ElasticSearchService elasticSearchService;
 
-    @PostMapping("/createOrUpdateDocument")
+    @PostMapping("/createOrUpdate")
     public ResponseEntity<Object> createOrUpdateDocument(@RequestBody ElasticEntity elasticEntity) throws IOException {
-        String response = elasticSearchQuery.createOrUpdateDocument(elasticEntity);
+        String response = elasticSearchService.createOrUpdateDocument(elasticEntity);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/getDocument")
-    public ResponseEntity<Object> getDocumentById(@RequestParam String productId) throws IOException {
-        ElasticEntity product =  elasticSearchQuery.getDocumentById(productId);
-        return new ResponseEntity<>(product, HttpStatus.OK);
+    @GetMapping("/get")
+    public ResponseEntity<Object> getDocumentById(@RequestParam String id) throws IOException {
+        ElasticEntity elasticEntity = elasticSearchService.getDocumentById(id);
+        return new ResponseEntity<>(elasticEntity, HttpStatus.OK);
     }
 
-    @DeleteMapping("/deleteDocument")
-    public ResponseEntity<Object> deleteDocumentById(@RequestParam String productId) throws IOException {
-        String response =  elasticSearchQuery.deleteDocumentById(productId);
+    @DeleteMapping("/delete")
+    public ResponseEntity<Object> deleteDocumentById(@RequestParam String id) throws IOException {
+        String response = elasticSearchService.deleteDocumentById(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/searchDocument")
+    @GetMapping("/searchAll")
     public ResponseEntity<Object> searchAllDocument() throws IOException {
-        List<ElasticEntity> products = elasticSearchQuery.searchAllDocuments();
-        return new ResponseEntity<>(products, HttpStatus.OK);
+        List<ElasticEntity> elasticEntityList = elasticSearchService.searchAllDocuments();
+        return new ResponseEntity<>(elasticEntityList, HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Object> searchDocument(@RequestParam String index, @RequestParam String id) {
+        try {
+            Object result = elasticSearchService.searchDocument(index, id);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error: " + e.getMessage());
+        }
     }
 }

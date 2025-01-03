@@ -1,7 +1,7 @@
 <!-- SQL Data Fetch Form -->
 <div class="container">
     <h2>Fetch SQL Data</h2>
-    <form #kafkaForm="ngForm" (ngSubmit)="fetchData()">
+    <form #kafkaForm="ngForm" (ngSubmit)="fetchSqlData()">
         <mat-form-field appearance="outline">
             <mat-label>DB Name</mat-label>
             <input matInput type="text" [(ngModel)]="dbName" name="dbName" required>
@@ -26,14 +26,14 @@
     </form>
 </div>
 <!-- Data Output Section -->
-<div *ngIf="data && data.length > 0 && currentSqlView === 'sqlSearch'" class="container mt-4">
+<div *ngIf="sqlData && sqlData.length > 0 && currentSqlView === 'sqlSearch'" class="container mt-4">
     <div class="card">
         <div class="card-header">
             <h3>Fetched Data:</h3>
         </div>
         <div class="card-body">
             <ul class="list-group">
-                <li class="list-group-item" *ngFor="let d of data">
+                <li class="list-group-item" *ngFor="let data of sqlData">
                     <strong>Data:</strong> <pre>{{ data | json }}</pre> <br>
                 </li>
             </ul>

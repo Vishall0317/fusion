@@ -19,6 +19,9 @@
   /* Container for Form and Output */
   .container {
     padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #c5f4aa;
   }
   
   h2 {

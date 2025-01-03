@@ -1,1 +1,32 @@
-<p>elasticsearch works!</p>
+<!-- ElasticSearch Data Fetch Form -->
+<div class="container">
+    <h2>Fetch ElasticSearch Data</h2>
+    <form #ElasticSearchForm="ngForm" (ngSubmit)="fetchElasticSearchData()">
+        <mat-form-field appearance="outline">
+            <mat-label>Index</mat-label>
+            <input matInput type="text" [(ngModel)]="index" name="index" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>ID</mat-label>
+            <input matInput type="text" [(ngModel)]="id" name="id" required>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit">Fetch Data</button>
+    </form>
+
+    <!-- Data Output Section -->
+    <div *ngIf="elasticData" class="container mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h3>Fetched Data:</h3>
+            </div>
+            <div class="card-body">
+                <pre>{{ elasticData | json }}</pre>
+            </div>
+            <div class="card-footer text-right">
+                <button mat-raised-button color="warn" (click)="closeData()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

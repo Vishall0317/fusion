@@ -6,7 +6,7 @@ import lombok.Data;
 public class KafkaResponse {
 
     private String key;
-    private String value;
+    private Object value;
     private String topic;
     private int partition;
     private long offset;

@@ -4,14 +4,9 @@
     <div class="button-container">
         <button mat-raised-button color="primary" (click)="showSection('sqlData')">Fetch SQL Data</button>
         <button mat-raised-button color="primary" (click)="showSection('mongoData')">Fetch Mongo Data</button>
-        <button mat-raised-button color="primary" (click)="showSection('showSearchKafkaData')">Fetch Kafka Data (CG,
-            Topic,
-            Partition,
-            Offset)</button>
-        <button mat-raised-button color="primary" (click)="showSection('showFetchKafkaData')">Fetch Kafka Data (CG,
-            Topic)</button>
+        <button mat-raised-button color="primary" (click)="showSection('showKafkaData')">Fetch Kafka Data</button>
         <button mat-raised-button color="primary" (click)="showSection('showElasticSearchData')">Fetch Elastic Search Data</button>
-        <button mat-raised-button color="primary" (click)="showSection('showSplunkData')">Fetch Splunk Data</button>
+        <!-- <button mat-raised-button color="primary" (click)="showSection('showSplunkData')">Fetch Splunk Data</button> -->
     </div>
 </div>
 
@@ -28,19 +23,18 @@
 </div>
 
 <!-- Kafka Data Fetch Form -->
-<div *ngIf="activeSection === 'showSearchKafkaData' || activeSection === 'showFetchKafkaData'">
-    <app-kafka [activeSection]='activeSection'>
-    </app-kafka>
+<div *ngIf="activeSection === 'showKafkaData'">
+    <app-kafka></app-kafka>
 </div>
 
 
-<!-- Mongo Data Fetch Form -->
+<!-- ElasticSearch Data Fetch Form -->
 <div *ngIf="activeSection === 'showElasticSearchData'">
     <app-elasticsearch></app-elasticsearch>
 </div>
 
 
-<!-- Mongo Data Fetch Form -->
+<!-- Splunk Data Fetch Form -->
 <div *ngIf="activeSection === 'showSplunkData'">
     <app-splunk></app-splunk>
 </div>

@@ -37,3 +37,17 @@ http://localhost:8080/api/mongo
 
 
 http://localhost:8080/api/mongo/data?dbName=fusion_db&collection=fusion&primaryKey=_id&primaryValue=107
+
+elastic
+-----------
+start server --- http://localhost:9200/
+
+http://localhost:8080/elastic/createOrUpdateDocument
+{
+    "id": "107",
+    "name": "John Doe",
+    "city": "pune",
+    "salary": "30000"
+}
+
+http://localhost:8080/elastic/search?index=fusion_es&id=101
